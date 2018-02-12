@@ -30,9 +30,9 @@ pygame.display.set_caption('A bit Racey')
 clock = pygame.time.Clock()
 
 carImg = pygame.image.load('racecar.png')
-gameIcon = pygame.image.load('carIcon.png')
+#gameIcon = pygame.image.load('carIcon.png')
 
-pygame.display.set_icon(gameIcon)
+#pygame.display.set_icon(gameIcon)
 
 pause = False
 
@@ -42,6 +42,8 @@ def things_dodged(count):
     font = pygame.font.SysFont("comicsansms", 25)
     text = font.render("Dodged: " + str(count), True, black)
     gameDisplay.blit(text, (0, 0))
+    text = font.render("Anshul", True, black)
+    gameDisplay.blit(text, (730, 570))
 
 
 def things(thingx, thingy, thingw, thingh, color):
@@ -97,6 +99,32 @@ def quitgame():
     quit()
 
 
+'''def unpause():
+    global pause
+    pause = False
+'''
+
+'''def paused():
+    largeText = pygame.font.SysFont("comicsansms", 115)
+    TextSurf, TextRect = text_objects("Paused", largeText)
+    TextRect.center = ((display_width / 2), (display_height / 2))
+    gameDisplay.blit(TextSurf, TextRect)
+
+    while pause:
+        for event in pygame.event.get():
+            # print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        # gameDisplay.fill(white)
+
+        button("Continue", 150, 450, 100, 50, green, bright_green, unpause)
+        button("Quit", 550, 450, 100, 50, red, bright_red, quitgame)
+
+        pygame.display.update()
+        clock.tick(15)
+'''
 
 def game_intro():
     intro = True
@@ -206,18 +234,9 @@ def game_loop():
             # it to compute the minimum enclosing circle and
             # centroid
             c = max(cnts, key=cv2.contourArea)
-            ((x, y), radius) = cv2.minEnclosingCircle(c)
+            ((x, lad), radius) = cv2.minEnclosingCircle(c)
             M = cv2.moments(c)
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-
-            # only proceed if the radius meets a minimum size
-            if radius > 10:
-                # draw the circle and centroid on the frame,
-                # then update the list of tracked points
-                cv2.circle(frame, (int(x), int(y)), int(radius),
-                           (0, 255, 255), 2)
-                cv2.circle(frame, center, 5, (0, 0, 255), -1)
-                pts.appendleft(center)
 
         # loop over the set of tracked points
         for i in np.arange(1, len(pts)):
@@ -228,7 +247,7 @@ def game_loop():
 
             # check to see if enough points have been accumulated in
             # the buffer
-            if counter >= 10 and i == 1 and pts[-10] is not None:
+            if counter >= 300 and i == 1 and pts[-10] is not None:
                 # compute the difference between the x and y
                 # coordinates and re-initialize the direction
                 # text variables
@@ -267,16 +286,7 @@ def game_loop():
             break
 
 
-        if direction == 'East' or direction == 'South-East' or direction == 'North-East':
-            x_change = -5
-        elif direction == 'West' or direction == 'South-West' or direction == 'North-West':
-            x_change = 5
-
-        elif direction == '':
-            x_change = 0
-
         zz+=1
-        x += x_change
         gameDisplay.fill(white)
 
         # things(thingx, thingy, thingw, thingh, color)
