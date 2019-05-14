@@ -1,5 +1,5 @@
-# dodge-it
-Never knew that Python could turn my dream of playing a game on my laptop with gestures; into reality. The game "dodge it" convert the motion of a physical object to control a virtual car. You just need to Run the game and take a green coloured object near you and start waving it around and you will feel it's beauty. The game makes the use of OpenCV and Pygame.
+# 2Cars
+Never knew that Python could turn my dream of playing a game on my laptop with gestures; into reality. The game "2Cars" convert the motion of a physical object to control a virtual car. You just need to Run the game and take a green coloured object near you and start waving it around and you will feel it's beauty. The game makes the use of OpenCV and Pygame.
 
 # Installation:
 To run the game, first you need to install the following:
